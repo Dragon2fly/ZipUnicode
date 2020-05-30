@@ -123,7 +123,7 @@ class ZipHandler:
             zip_it(new_name, folder_to_zip)
 
         if self.is_encrypted():
-            logger.warning(f"Fixed zipfile is not password protected!")
+            logger.warning(f" !!! Fixed zipfile is NOT password protected!")
 
     def _extract_individual(self, filename: str, output_path: Path,
                             password: bytes = None) -> bool:
