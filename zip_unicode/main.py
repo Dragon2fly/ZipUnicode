@@ -122,6 +122,9 @@ class ZipHandler:
             folder_to_zip = tmp_folder      # /self.zip_path.stem
             zip_it(new_name, folder_to_zip)
 
+        if self.is_encrypted():
+            logger.warning(f"Fixed zipfile is not password protected!")
+
     def _extract_individual(self, filename: str, output_path: Path,
                             password: bytes = None) -> bool:
         """Extract 'filename' in zipfile to path 'output_path' with password 'password' """

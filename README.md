@@ -254,3 +254,7 @@ This will create a new `file_fixed.zip` contains all file names encoded with `UT
    This first extracts your zip file (and convert all file names to `UTF-8`). 
    Then it compresses extracted contents and adds `_fixed` suffix to the zip filename.
    The fixed zip file is on the same path as the original one.
+   
+   **Warning**: `zipu` cannot create password encrypted zip file. 
+   With these files you have to first extract it by `zipu` and then re-zip it 
+   with your conventional tool.
