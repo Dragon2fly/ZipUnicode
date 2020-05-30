@@ -20,6 +20,7 @@ setup(
     author_email='nguyenbaduc.tin@gmail.com',
     description='Fix unreadable file names when extracting zip file',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     install_requires=[
         'chardet>=3.0.0',
     ],
