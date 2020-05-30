@@ -197,7 +197,7 @@ def entry_point():
                         help='create a new zip file with UTF-8 file names')
     parser.add_argument('--encoding', '-enc',
                         help='zip file used encoding: shift-jis, cp932...')
-    parser.add_argument('--password', '-pwd',
+    parser.add_argument('--password', '-pwd', default='',
                         help='password to extract zip file')
 
     args = parser.parse_args()

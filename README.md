@@ -171,6 +171,10 @@ This will create a new `file_fixed.zip` contains all file names encoded with `UT
    
    Only when auto-detection failed, it is your responsibility to decide which `ENCODING` is the correct one.
    
+   **Warning**: If your console uses non-full `UTF-8` font as in the case of Windows,
+   some `UTF-8` characters are shown as a dot `・`. 
+   This is not a result of wrong encoding but rather unsupported characters by the font.
+   
 3. Extract the zip file:
 
     Usually, encoding auto-detection works just fine so you can jump right to extraction with <br>
