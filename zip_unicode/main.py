@@ -159,8 +159,12 @@ class ZipHandler:
 
             logger.info(f"Extracting: {decoded_name}")
             fo = destination / decoded_name
+            if fo.exists() and fo.is_dir():
+                # skip already exists directory
+                continue
             parent = fo.parent
             if parent.exists() and parent.is_file():
+                # parent should be a directory
                 parent.unlink()
             parent.mkdir(parents=True, exist_ok=True)
             extract_ok = self._extract_individual(original_name, fo, password)
