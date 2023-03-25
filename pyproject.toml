@@ -1,30 +1,20 @@
-from setuptools import setup
-from zip_unicode import __version__
+[build-system]
+requires = ["setuptools>=61.0", "chardet"]
+build-backend = "setuptools.build_meta"
 
-with open('README.md', encoding='utf8') as fi:
-    long_description = fi.read()
-
-setup(
-    name='ZipUnicode',
-    version=__version__,
-    packages=['zip_unicode'],
-    url='https://github.com/Dragon2fly/ZipUnicode',
-    license='MIT',
-    entry_points={
-        'console_scripts': [
-            'zipu=zip_unicode.main:entry_point',
-        ],
-    },
-    platforms=["Any platform -- don't need Windows"],
-    author='Nguyen Ba Duc Tin',
-    author_email='nguyenbaduc.tin@gmail.com',
-    description='Fix unreadable file names when extracting zip file',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    install_requires=[
-        'chardet>=3.0.0',
-    ],
-    classifiers=[
+[project]
+name = "ZipUnicode"
+authors = [
+    {name = "Nguyen Ba Duc Tin", email = "nguyenbaduc.tin@gmail.com"},
+]
+description = "Fix unreadable file names when extracting zip file"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+dependencies = [
+    'chardet>=3.0.0',
+]
+classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Developers',
@@ -44,6 +34,17 @@ setup(
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Utilities'
-    ],
-    python_requires=">=3.6",
-)
+    ]
+dynamic = ["version"]
+
+[project.scripts]
+zipu = "zip_unicode.main:entry_point"
+
+[project.urls]
+homepage = "https://github.com/Dragon2fly/ZipUnicode"
+
+[tool.setuptools]
+packages = ["zip_unicode"]
+
+[tool.setuptools.dynamic]
+version = {attr = "zip_unicode.__version__"}
