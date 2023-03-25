@@ -1,6 +1,10 @@
 # ZipUnicode
 Make extracted unreadable filename problem gone away. 
 
+[![Downloads](https://pepy.tech/badge/zipunicode)](https://pepy.tech/project/zipunicode)
+[![PyPI version](https://badge.fury.io/py/zipunicode.svg)](https://pypi.org/project/zipunicode/)
+[![GitHub license](https://img.shields.io/github/license/Dragon2fly/zipunicode)](https://github.com/Dragon2fly/zipunicode/blob/master/LICENSE)
+
 ## Install:
 Using pip: `pip install ZipUnicode`
 
