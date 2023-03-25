@@ -225,7 +225,7 @@ def entry_point():
         elif args.fix:
             zhdl = ZipHandler(path=args.zipfile, encoding=args.encoding,
                               password=args.password.encode('utf8'),
-                              extract_path=args.dst)
+                              extract_path=args.destination)
             zhdl.fix_it()
         else:
             zhdl = ZipHandler(path=args.zipfile, encoding=args.encoding)
