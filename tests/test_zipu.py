@@ -11,6 +11,7 @@ root_folder2 = ZipHandler('20200524_ドラゴンボール.zip')
 flat = ZipHandler('20200524_フラット.zip')
 flat_pwd = ZipHandler('20200524_フラットpwd.zip')
 mixed = ZipHandler('ミックス.zip')
+nested_subfolder = ZipHandler('202301-03_hokkaido_jukyu.zip')    # with folder entry registered as a file
 
 
 def clean_up(path: Path):
@@ -90,6 +91,14 @@ def test_extract_all():
     assert set(x.name for x in out.iterdir()) == expect
     clean_up(out)
 
+    # multiple sub-folder with subfolders entry as a file
+    # aka malformed zipfile
+    expect = {'202301', '202302', '202303'}
+    out = Path('test_extract_all_multiple_sub_folder')
+    nested_subfolder.extract_all(out)
+    assert set(x.name for x in out.iterdir()) == expect
+    clean_up(out)
+
 
 def test_extract_all_with_pwd(caplog):
     expect = {'テストレポート＿リナックスノード.txt', '経営報告_桜ちゃん.txt', '太陽バッテリーver5.txt'}
@@ -134,7 +143,7 @@ def test_extract_all_with_root_folder():
     clean_up(out3)
 
 
-@pytest.mark.parametrize('my_zip',[root_folder, flat, mixed])
+@pytest.mark.parametrize('my_zip', [root_folder, flat, mixed])
 def test_fix_it(my_zip):
     my_zip.fix_it()
 

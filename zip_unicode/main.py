@@ -76,6 +76,13 @@ class ZipHandler:
             logger.info(' * All file names are properly in UTF8 encoding')
             return 'UTF_8'
 
+    def _is_folder_entry_as_file(self, entry_name):
+        for entry in self.zip_ref.namelist():
+            if entry.startswith(entry_name) and len(entry) > len(entry_name):
+                return True
+        else:
+            return False
+
     def _get_filename_map(self) -> dict:
         """ Map unreadable filename to correctly decoded one """
         encoding = self.original_encoding
@@ -88,6 +95,11 @@ class ZipHandler:
             else:
                 name_as_str = file_info.filename
 
+            if file_info.file_size == 0 and not name_as_str.endswith('/'):
+                if self._is_folder_entry_as_file(name_as_str):
+                    logger.warning(f'Malformed zipfile: Entry "{file_info.filename}" '
+                                   f'is a directory but is registered as a file.')
+                    continue
             name_map[file_info.filename] = name_as_str
 
         return name_map
