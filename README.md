@@ -258,3 +258,12 @@ This will create a new `file_fixed.zip` contains all file names encoded with `UT
    **Warning**: `zipu` cannot create password encrypted zip file. 
    With these files you have to first extract it by `zipu` and then re-zip it 
    with your conventional tool.
+
+## Changelog
+### 1.1.0
+   * Handle malformed zip file: Some zip files contain folders but are registered as file entries.
+  These file entries have size of zero by and are extracted as zero-byte files.
+  Since the OS doesn't allow creating file and folder of the same name 
+  within the same directory, `zipu` cannot continue to create the folder and extract the file inside.
+  Now `zipu` will check for those malformed entries and skip it.
+   * Fixing zip file from commandline with `zipu -f` now work normally.
