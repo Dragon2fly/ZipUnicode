@@ -9,6 +9,7 @@ import zipfile
 import tempfile
 from pathlib import Path
 from argparse import ArgumentParser
+from typing import List, Tuple, Dict, Union, Optional
 
 import chardet
 from .time_utils import set_file_time
@@ -26,8 +27,8 @@ def zip_it(base_name, root_dir):
 
 
 class ZipHandler:
-    def __init__(self, path: str, encoding: str = None,
-                 password: bytes = None, extract_path: str = ""):
+    def __init__(self, path: Union[str, Path], encoding: Optional[str] = None,
+                 password: Optional[bytes] = None, extract_path: Union[str, Path] = ""):
 
         self.zip_path = Path(path)
         self.zip_ref = zipfile.ZipFile(self.zip_path)
@@ -44,7 +45,7 @@ class ZipHandler:
         self.destination = Path(extract_path) if extract_path else self.default_destination
 
     @staticmethod
-    def byte_name(file_info: zipfile.ZipInfo) -> (bool, bytes):
+    def byte_name(file_info: zipfile.ZipInfo) -> Tuple[bool, bytes]:
         """return path of a zip element in bytes,
             and a flag is True if it is UTF-8 encoded
         """
@@ -111,9 +112,10 @@ class ZipHandler:
         if not has_root:
             return False
 
-        zipname = self.zip_ref.filename.replace('.zip', '/')
+        zipname = self.zip_path.stem + "/"
         if zipname.endswith(root):
             return True
+        return False
 
     def is_encrypted(self) -> bool:
         """Check if zipfile is password protected"""
@@ -137,7 +139,7 @@ class ZipHandler:
             logger.warning(f" !!! Fixed zipfile is NOT password protected!")
 
     def _extract_individual(self, filename: str, output_path: Path,
-                            password: bytes = None) -> bool:
+                            password: Optional[bytes] = None) -> bool:
         """Extract 'filename' in zipfile to path 'output_path' with password 'password' """
 
         try:
@@ -160,7 +162,7 @@ class ZipHandler:
             logger.error(e)
             return False
 
-    def extract_all(self, destination: Path = None):
+    def extract_all(self, destination: Optional[Path] = None):
         """Extract content of zipfile with readable filename"""
         password = self.password
         destination = destination or self.destination
